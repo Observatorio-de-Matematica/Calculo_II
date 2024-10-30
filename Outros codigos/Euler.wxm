@@ -1,0 +1,23 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+raizes: solve(t^2*diff(t^r,t,2)+3*t*diff(t^r,t)-3*t^r,r);
+define(y0(t),t^rhs(raizes[1])); define(y1(t),t^rhs(raizes[2]));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load("functs")$
+determinant(wronskian([y0(t),y1(t)],t));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+y=%k1*y0(t)+%k2*y1(t); ic2(%,t=1,y=a, 'diff(y,t)=b);
+define(y(t), rhs(%));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

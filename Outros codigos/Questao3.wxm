@@ -1,0 +1,61 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+taylor(U(x),x,0,1); p1(x):=U(0)+dU(0)*x;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+eq3:-k*'diff(y(x) ,x,2)+U(x)*y(x)=E*y(x);
+expand(subst([U(x)=p1(x),U(0)=E],eq3-E*y(x)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+z(x):=c^(1/3) *x; dy1:'diff(Y(z),z)*diff(z(x),x);
+dy2:'diff(Y,z,2)* diff(z(x),x)^2; eq4:dy2-c*x*Y=0;
+radcan(subst(x=c^(-1/3)*z,eq4));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Y:sum(a[n]*z^ n,n,0,inf); Y1: sum(n*a[n]*z^(n-1),n,1,inf);
+Y2:2*a[2]+sum( (n-1)*n*a[n]*z^(n-2),n,3,inf);
+zY: changevar( intosum(z*Y) ,n+1=k,k,n); Y2c: changevar(Y2,n=k+2,k,n);
+serie : radcan( sumcontract( intosum( Y2c - zY))); CON: part(%,2);
+define(b[k], part(serie,1,1)/z ^k); solve(b[k]=0,a[k+2] );
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+powerdisp: true$ makelist(b[k]=0,k,1,6); append(%, [CON=0]);
+SOL: linsolve(%, makelist(a[k],k,2,8));
+subst( [a[0]=1,a[1]=0] ,SOL); " Y0(z)"=1+ subst(%, sum(a[k]*z^ k,k,2,8));
+subst( [a[0]=0,a[1]=1] ,SOL); " Y1(z)"=x+ subst(%, sum(a[k]*z^ k,k,2,8));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+limit(t^2/(1-t), t, 0);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+zY: changevar(intosum(t*y(t)),n+1=k,k,n); 
+Y2c: changevar(d2y(t),n=k+2,k,n);
+serie: radcan(sumcontract(intosum(Y2c - zY))); CON: part(%,2);
+define(b[k], part(serie,1,1)/t^k); 
+solve(b[k]=0,a[k+2]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+SOL: linsolve(%,makelist(a[k],k,2,8));
+subst([a[0]=1,a[1]=0],SOL); "Y0(t)"=1+subst(%,sum(a[k]*t^k,k,2,8));
+subst([a[0]=0,a[1]=1],SOL); "Y1(t)"=t+subst(%,sum(a[k]*t^k,k,2,8));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

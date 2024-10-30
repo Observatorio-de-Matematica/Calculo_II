@@ -1,0 +1,105 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+define(y(t), sum(a[n]*t^(n+r),n,0,inf));
+define(d1y(t), sum((n+r)*a[n]*t^(n+r-1),n,0,inf));
+define(d2y(t), sum((n+r-1)*(n+r)*a[n]*t^(n+r-2),n,0,inf));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d2ya: intosum(t*d2y(t));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d2yA:  a[0]*t^(r-1)*(r-1)*(r) +  sum(args(%)[1],n,1,inf);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d2y_k: changevar(d2yA, k=n,k,n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d1yA: a[0]*r*t^(r-1) + sum((n+r)*a[n]*t^(n+r-1),n,1,inf);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d1y_k: changevar(d1yA, k=n,k,n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+y_k: changevar(intosum(y(t)),k-1=n,k,n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+serie: (sumcontract(intosum(d2y_k + d1y_k - y_k)));
+serie: radcan(part(%,1)) + part(%,2)+part(%,3);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(b[k], part(%,1,1)/t^(r+k-1));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+recorr: solve(b[k]=0,a[k]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CON: radcan(part(serie,2)+part(serie,3)=0);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+eq_indicial: part(CON,1,2)=0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+raiz: solve(eq_indicial,r);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+subst(r=0, b[k]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(b[k],%);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+powerdisp:true$ makelist(b[k]=0,k,1,5);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+linsolve(%,makelist(a[k],k,1,5))$
+subst([a[0]=1,%);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(Y5(t),1+subst(%,sum(a[k]*t^k,k,1,4)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([Y5(t)],[t,-5,5], 
+[style,[lines,5]],[legend,"Aprox. 5"]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

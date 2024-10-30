@@ -1,0 +1,66 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+load("functs")$ 
+determinant(wronskian([%e^(-t)*cos(2*t), %e^(-t)*sen(2*t)],t));
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+diff(%e^(-t)*cos(2*t),t,1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+diff(%e^(-t)*sen(2*t),t,1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(2*%e^(-2*t)*cos(2*t)^(2)-%e^(-2*t)*cos(2*t)*sen(2*t)+
+    2*%e^(-2*t)*sen(2*t)^(2)+%e^(-2*t)*cos(2*t)*sen(2*t));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(cos(2*t)^(2)+sen(2*t)^(2)=1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand(2*%e^(-2*t));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+    M:matrix([%e^(-t)*cos(2*t),%e^(-t)*sen(2*t)],[-2*%e^(-t)*sen(2*t)
+        -%e^(-t)*cos(2*t),2*%e^(-t)*cos(2*t)-%e^(-t)*sen(2*t)]);
+
+
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

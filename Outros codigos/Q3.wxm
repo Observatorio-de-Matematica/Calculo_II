@@ -1,0 +1,31 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+A: matrix( [0,1],[-8,-4]); autos: eigenvectors(A);
+l1: autos[1][1][1]; l2: autos[1][1][2];
+v1: transpose( autos [2] [1][1]); v2: transpose( autos [2][2][1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(z1(t), realpart(v1* exp(l1*t)));
+define(z2(t), imagpart(v1* exp(l1*t)));
+define(zh(t),k1*z1(t)+k2*z2(t));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ b: matrix( [0], [-4*T]); define(zp(t), invert(A). b);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(z(t),zh(t)+zp(t));
+C: linsolve( [z(0)[1][1]=0,z(0) [2][1]=0],[k1, k2]);
+k1: rhs(C[1]); k2: rhs(C[2] ); " z(t)"= factor( radcan(z(t)));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

@@ -1,0 +1,24 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+eq2: ' diff(Q(t),t,2)+5* ' diff(Q(t),t)+4*Q(t)=E0* cos(2*t);
+atvalue(Q(t),t=0,0); atvalue( ' diff(Q(t),t),t=0,0);
+laplace(eq2,t,s); solve(%, ' laplace(Q(t),t,s) );
+define(q(s), factor( rhs(%[1])) );
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+partfrac(q(s) ,s);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+"Q(t)"= ilt(q(s),s,t);
+
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

@@ -1,0 +1,59 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ integrate(-2*sin(2*t)*cos(2*t), t);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+integrate(cos(2*t)^(2), t);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+expand((sen(4*t)+4*t)/4);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(yp(t),(cos(2*t)^(2)/2)*%e^(-t)*cos(2*t)+
+((sin(4*t)+4*t)/4)*%e^(-t)*sin(2*t));  
+y1(t) := %e^(-t)*cos(2*t);
+
+y2(t) := %e^(-t)*sin(2*t);
+
+a(t) := ((cos(2*t)^2)/2);
+
+b(t) := ((sin(4*t)+4*t)/4);
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(yp(t),a(t)*y1(t)+b(t)*y2(t));  
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ define(y(t), rhs( ic2(y=%k1*y1(t)+%k2*y2(t)+yp(t),t=0,y=1,' diff(y,t)=0)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d(y(t),[t,-10,10]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

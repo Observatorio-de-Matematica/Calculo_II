@@ -1,0 +1,97 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+define(f(x), sum(x ^n,n,0, inf));
+diff(f(x) ,x);
+ev(%,x=2*x);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solve(2*x ^2=1);
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+f(-2*x ^2);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+diff( atan( sqrt(2) *x),x);
+integrate( sqrt(2) *f(-2*x ^2),x);
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ intosum(x ^3*f(-x ^6));
+solve( 2019=6*n+3, n);
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(y(x), sum(a[n]*x^n,n,0, inf) );
+diff(y(x) ,x,2);
+sum( args(%)[1],n,2,inf);
+define( d2y(x) , changevar(%,n=k+2,k,n));
+radcan( sumcontract( intosum( d2y(x)-y(x))));
+define(b[n], args(%)[1]/x^ n);
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solve(b[n]=0,a[n+2]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load("solve_rec")$
+declare(k, integer);
+solve_rec(a[n+2]=a[n]/(n ^2+3*n+2) ,a[n],a[0]=1,a[1]=0);
+subst(2*k,n,%);
+define(y0(x), sum(rhs(%)*x ^(2*k),k,0, inf));
+solve_rec(a[n+2]=a[n]/(n ^2+3*n+2) ,a[n],a[0]=0,a[1]=1);
+subst(2*k+1,n,%);
+define(y1(x), sum( rhs(%)*x ^(2*k+1) ,k,0,inf));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load("functs")$
+wronskian([taylor(y0(x),x,0,3),taylor(y1(x),x,0,3)],x);
+determinant(ev(%,x=0));
+taylor(%e^x,x,0,5)=taylor(y0(x)+y1(x),x,0,5);
+taylor(%e^(-x),x,0,5)=taylor(y0(x)-y1(x),x,0,5);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ define(a(n),(-1)^ n/(2*n+1)!);
+define(b(n),(-1)^ n/(2*n)!);
+define(s(t), sum(a(n)*t^(2*n+1),n,0,inf));
+define(c(t), sum(b(n)*t^(2*n),n,0, inf) );
+limit( abs(a(n+1)/a(n) ),n, inf);
+limit( abs(b(n+1)/b(n) ),n, inf);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+factcomb( diff(s(t),t) );
+diff(c(t) ,t)$
+sum( args( intosum(%))[1],n,1, inf)$
+factcomb( changevar(%,k+1=n,k,n));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

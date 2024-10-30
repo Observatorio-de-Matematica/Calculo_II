@@ -1,0 +1,65 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+define(y(t), sum(a[n]*t^n,n,0,inf));
+define(dy1(t), diff(y(t),t));
+define(dy2(t), diff(y(t),t,2));
+
+sum(args(dy1(t))[1],n,1,inf);
+define(dy1(t), changevar(%,n=k+1,k,n));
+sum(args(dy2(t))[1],n,2,inf);
+define(d2y(t) , changevar(%,n=k+2,k,n));
+
+radcan(sumcontract(intosum(d2y(t) + 4*dy1(t) + 3*y(t))));
+define(b[n], args(%)[1]/t^n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+recor: solve(b[n]=0,a[n+2]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load("solve_rec")$
+declare(k,integer)$;
+solve_rec(recor[1],a[n],a[0]=1,a[1]=0);
+radcan(%)$;
+subst(2*k,n,%);
+define(y0(x),sum(rhs(%)*x^(2*k),k,0,inf));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solve_rec(recor[1],a[n],a[0]=0,a[1]=1);
+radcan(%)$;
+subst(2*k+1,n,%);
+define(y1(x),sum(rhs(%)*x^(2*k+1),k,0,inf));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+a[0]=2;
+a[1]=-1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+define(y(t), a[0]*y0(x)+a[1]*y1(x));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([taylor(y(t),t,0,4),taylor(y(t),t,0,5)],[t,-1.5,1.5],[y,-1.5,1.5], 
+[style,[lines,5],[lines,3]],[legend,"Aprox. 4","Aprox. 5"]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

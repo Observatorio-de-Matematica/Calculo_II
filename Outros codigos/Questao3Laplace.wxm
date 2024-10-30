@@ -1,0 +1,33 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+ eq3: ' diff(y(t),t,2)+y(t)= -4* sin(2*t);
+atvalue(y(t),t=0,0); atvalue( ' diff(y(t),t),t=0,2);
+laplace(eq3,t,s);
+factor( solve(%, ' laplace(y(t),t,s) ));
+define(Y(s), rhs(%[1]) );
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+partfrac(Y(s) ,s);
+define(y(t), ilt(Y(s),s,t) );
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+laplace(x(t)+ ' integrate( (t-tau)*x( tau) ,tau,0,t)= sin(2*t),t,s);
+factor( solve(%, ' laplace(x(t),t,s) ));
+define(X(s), rhs(%[1]));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ilt(X(s),s,t);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

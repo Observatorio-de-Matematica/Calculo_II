@@ -1,0 +1,34 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+ T0=(1/sqrt(2*g))* ' integrate(f(y)/ sqrt(y0-y),y,0,y0);
+laplace(%,y0,s);
+define(F(s), rhs( solve(%, ' laplace(f(y0),y0,s)) [1]) );
+solve(k0/ sqrt(s)=F(s) ,k0);
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solve(k1* sqrt(%pi/s)=F(s) ,k1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+assume(k1>0,y>0);
+solve( sqrt(1+( ' diff(x(y),y))^2)=k1/ sqrt(y), ' diff(x(y) ,y)) [2];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+assume( sin(t/2)>0,cos(t/2)>0,a>0);
+define(y(t),2*a*( sin(t/2) )^2);
+integrate( sqrt( (2*a-y(t))/y(t))* diff(y(t) ,t),t);
+trigsimp(%);
+define(x(t), trigreduce(%) );
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

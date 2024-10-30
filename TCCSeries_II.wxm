@@ -1,0 +1,70 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+define(y(t), sum(a[n]*t^n,n,0,inf));
+define(y(t), a[0]+sum(a[n]*t^n,n,1,inf));
+define(d1y(t), sum(n*a[n]*t^(n-1),n,1,inf));
+define(d2y(t), sum((n-1)*n*a[n]*t^(n-2),n,2,inf));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+novo_y: changevar(y(t), k-2=n,k,n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d2ya: 2*a[2]+sum((n-1)*n*a[n]*t^(n-2),n,3,inf);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d2yA: changevar(d2ya, k=n,k,n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d2yb: intosum(d2y(t)*(-t));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+d2yB: changevar(intosum(d2yb),k-1=n,k,n);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+serie: radcan(sumcontract(intosum(novo_y + d2yA + d2yB))); 
+CON: part(%,2) + part(%,3);
+define(b[k], part(serie,1,1)/t^(k-2));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ solve(b[k]=0,a[k]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+powerdisp:true$ makelist(b[k]=0,k,3,5); append(%,[CON=0,a[0]=1,a[1]=0]);
+SOL: linsolve(%,makelist(a[k],k,0,5));
+define(Y4(t),1+subst(%,sum(a[k]*t^k,k,2,4)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+powerdisp:true$ makelist(b[k]=0,k,3,5); append(%,[CON=0,a[0]=1,a[1]=0]);
+SOL: linsolve(%,makelist(a[k],k,0,5));
+define(Y5(t),1+subst(%,sum(a[k]*t^k,k,2,5)));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([Y4(t),Y5(t)],[t,-1,1], 
+[style,[lines,5],[lines,3]],[legend,"Aprox. 4","Aprox. 5"]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
